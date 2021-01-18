@@ -1,5 +1,5 @@
 // ============================ hooks =================================
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ContactForm from './contactForm/ContactForm';
 import ContactList from './contactList/ContactList';
 import Filter from './filter/Filter';
@@ -11,13 +11,29 @@ import '@pnotify/core/dist/BrightTheme.css';
 
 const Phonebook = () => {
   const [contacts, setContacts] = useState([
-    { id: 'id-1', name: 'Rosie Simpson', number: '+380674591256' },
-    { id: 'id-2', name: 'Hermione Kline', number: '+380674438912' },
-    { id: 'id-3', name: 'Eden Clements', number: '+380676451779' },
-    { id: 'id-4', name: 'Annie Copeland', number: '+380672279126' },
+    // { id: 'id-1', name: 'Rosie Simpson', number: '+380674591256' },
+    // { id: 'id-2', name: 'Hermione Kline', number: '+380674438912' },
+    // { id: 'id-3', name: 'Eden Clements', number: '+380676451779' },
+    // { id: 'id-4', name: 'Annie Copeland', number: '+380672279126' },
   ]);
   const [filter, setFilter] = useState('');
 
+  //   componentDidMount
+  useEffect(() => {
+    console.log('componentDidMount');
+
+    if (localStorage.getItem('contacts')) {
+      const contactsFromLS = JSON.parse(localStorage.getItem('contacts'));
+      contactsFromLS.length && setContacts([...contactsFromLS]);
+    }
+  }, []);
+
+  //   componentDidUpdate
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
+  // Methods;
   const addContact = user => {
     if (contacts.some(item => item.name === user.name)) {
       notice({
@@ -125,25 +141,42 @@ export default Phonebook;
 // class Phonebook extends Component {
 //   state = {
 //     contacts: [
-//       { id: 'id-1', name: 'Rosie Simpson', number: '+380674591256' },
-//       { id: 'id-2', name: 'Hermione Kline', number: '+380674438912' },
-//       { id: 'id-3', name: 'Eden Clements', number: '+380676451779' },
-//       { id: 'id-4', name: 'Annie Copeland', number: '+380672279126' },
+//       // { id: 'id-1', name: 'Rosie Simpson', number: '+380674591256' },
+//       // { id: 'id-2', name: 'Hermione Kline', number: '+380674438912' },
+//       // { id: 'id-3', name: 'Eden Clements', number: '+380676451779' },
+//       // { id: 'id-4', name: 'Annie Copeland', number: '+380672279126' },
 //     ],
 //     filter: '',
 //   };
 
-// addContact = user => {
-//   const { contacts } = this.state;
-
-//   if (contacts.some(item => item.name === user.name)) {
-//     notice({
-//       text: `${user.name} is already in contacts`,
-//       delay: 1500,
-//       width: '300px',
-//     });
-//     return;
+//   componentDidMount() {
+//     console.log('componentDidMount');
+//     if (localStorage.getItem('contacts')) {
+//       const contactsFromLS = JSON.parse(localStorage.getItem('contacts'));
+//       contactsFromLS.length &&
+//         this.setState({
+//           contacts: [...contactsFromLS],
+//         });
+//     }
 //   }
+
+//   componentDidUpdate(prevProps, prevState) {
+//     if (prevState.contacts.length !== this.state.contacts.length) {
+//       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+//     }
+//   }
+
+//   addContact = user => {
+//     const { contacts } = this.state;
+
+//     if (contacts.some(item => item.name === user.name)) {
+//       notice({
+//         text: `${user.name} is already in contacts`,
+//         delay: 1500,
+//         width: '300px',
+//       });
+//       return;
+//     }
 
 //     if (contacts.some(item => item.number === user.number)) {
 //       notice({
