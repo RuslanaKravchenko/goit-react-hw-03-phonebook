@@ -99,5 +99,11 @@ const ContactInfoStyled = styled.div`
   .info_call {
     margin-right: 15px;
   }
+
+  .disabled {
+    pointer-events: none;
+    cursor: default;
+    background-color: grey;
+  }
 `;
 export default ContactInfoStyled;

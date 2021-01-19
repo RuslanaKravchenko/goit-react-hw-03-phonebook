@@ -31,7 +31,11 @@ const ContactInfo = ({ contact }) => {
         <a className="info_call info_link" href={`tel:${number}`}>
           Call
         </a>
-        <a className="info_message info_link" href={`mailto:${email}`}>
+
+        <a
+          className={`info_link  ${!email && 'disabled'} `}
+          href={`mailto:${email}`}
+        >
           Message
         </a>
       </div>
