@@ -12,15 +12,18 @@ const ContactInfo = ({ contact }) => {
       <ul className="list info_list">
         <li className="info_item">
           <span className="info_label">Number:</span>
+          <span className="info_dots"></span>
           <span className="info_contact">{number}</span>
         </li>
         <li className="info_item">
           <span className="info_label">Email:</span>
+          <span className="info_dots"></span>
           <span className="info_contact">{email}</span>
         </li>
       </ul>
       <p className="info_dateOfBirth">
         <span className="info_dateOfBirth-label">Date of birth:</span>
+        <span className="info_dots"></span>
         <span className="info_dateOfBirth-date">{dateOfBirth}</span>
       </p>
 

@@ -3,6 +3,10 @@ import styled from 'styled-components';
 const ContactInfoStyled = styled.div`
   padding: 40px 30px;
 
+  @media (min-width: 768px) {
+    padding: 30px 50px;
+  }
+
   .info_name {
     margin-bottom: 5px;
   }
@@ -30,7 +34,12 @@ const ContactInfoStyled = styled.div`
       margin-bottom: 10px;
     }
   }
-
+  .info_dots {
+    display: block;
+    flex-grow: 1;
+    height: 14px;
+    border-bottom: 2px dotted #eff5f4;
+  }
   .info_label {
     font-size: 16px;
     color: #4b4e4f;
