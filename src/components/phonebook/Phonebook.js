@@ -4,10 +4,13 @@ import ContactForm from './contactForm/ContactForm';
 import ContactList from './contactList/ContactList';
 import Filter from './filter/Filter';
 import Main from './PhonebookStyled';
+import EditProfileForm from './editProfileForm/EditProfileForm';
 
 import { notice } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
+import Modal from './modal/Madal';
+import ContactInfo from './contactInfo/ContactInfo';
 
 const Phonebook = () => {
   const [contacts, setContacts] = useState([
@@ -17,11 +20,12 @@ const Phonebook = () => {
     // { id: 'id-4', name: 'Annie Copeland', number: '+380672279126' },
   ]);
   const [filter, setFilter] = useState('');
+  const [isEditProfileOpen, setEditProfileOpen] = useState(false);
+  const [isContactInfoOpen, setContactInfoOpen] = useState(false);
+  const [contact, setContact] = useState({});
 
   //   componentDidMount
   useEffect(() => {
-    console.log('componentDidMount');
-
     if (localStorage.getItem('contacts')) {
       const contactsFromLS = JSON.parse(localStorage.getItem('contacts'));
       contactsFromLS.length && setContacts([...contactsFromLS]);
@@ -99,26 +103,47 @@ const Phonebook = () => {
     setFilter(e.target.value);
   };
 
+  const getContactById = id => {
+    const contactById = contacts.find(contact => contact.id === id);
+    setContact({ ...contactById });
+  };
+
   return (
     <Main>
       <h1 className="phonebook_title">Phonebook</h1>
       <ContactForm addContact={addContact} />
-
       <h2 className="contacts_title">Contacts</h2>
       {contacts.length >= 1 && (
         <Filter onChange={handleFilterInputChange} filter={filter} />
       )}
-
       {contacts.length > 0 ? (
         <ContactList
           contacts={getFilteredContacts()}
           filter={filter}
           deleteContact={deleteContact}
+          setEditProfileOpen={setEditProfileOpen}
+          setContactInfoOpen={setContactInfoOpen}
+          getContactById={getContactById}
         />
       ) : (
         <p className="contacts_text">
           Your phone book is empty. Please add a contact.
         </p>
+      )}
+      {isEditProfileOpen && (
+        <Modal func={setEditProfileOpen}>
+          <EditProfileForm
+            setEditProfileOpen={setEditProfileOpen}
+            contactById={contact}
+            setContacts={setContacts}
+            contacts={contacts}
+          />
+        </Modal>
+      )}
+      {isContactInfoOpen && (
+        <Modal func={setContactInfoOpen}>
+          <ContactInfo contact={contact} />
+        </Modal>
       )}
     </Main>
   );

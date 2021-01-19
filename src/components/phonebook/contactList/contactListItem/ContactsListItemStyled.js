@@ -19,6 +19,15 @@ const ListItem = styled.li`
     box-shadow: 5px 5px 11px 2px rgba(143, 108, 193, 0.45);
   }
 
+  .listItem_meta {
+    flex-grow: 1;
+    cursor: pointer;
+
+    @media (min-width: 768px) {
+      display: flex;
+      align-items: flex-start;
+    }
+  }
   .listItem_name {
     font-size: 18px;
     font-weight: 700;
@@ -30,6 +39,21 @@ const ListItem = styled.li`
     color: #4b4e4f;
   }
 
+  .listItem_category {
+    padding: 3px 7px;
+    width: max-content;
+    font-size: 12px;
+    color: #083e2d;
+    border: 1px solid #19b785;
+    border-radius: 15px;
+    @media (max-width: 767px) {
+      margin-top: 3px;
+    }
+
+    @media (min-width: 768px) {
+      margin-left: 15px;
+    }
+  }
   .listItem_btn {
     width: 40px;
     height: 40px;
