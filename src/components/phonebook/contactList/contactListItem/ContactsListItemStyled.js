@@ -24,11 +24,11 @@ const ListItem = styled.li`
     cursor: pointer;
 
     @media (min-width: 768px) {
-      display: flex;
-      align-items: flex-start;
+      position: relative;
     }
   }
   .listItem_name {
+    display: flex;
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 3px;
@@ -51,7 +51,10 @@ const ListItem = styled.li`
     }
 
     @media (min-width: 768px) {
-      margin-left: 15px;
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translate(0, -50%);
     }
   }
   .listItem_btn {

@@ -5,12 +5,12 @@ import ContactList from './contactList/ContactList';
 import Filter from './filter/Filter';
 import Main from './PhonebookStyled';
 import EditProfileForm from './editProfileForm/EditProfileForm';
+import Modal from './modal/Madal';
+import ContactInfo from './contactInfo/ContactInfo';
 
 import { notice } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
-import Modal from './modal/Madal';
-import ContactInfo from './contactInfo/ContactInfo';
 
 const Phonebook = () => {
   const [contacts, setContacts] = useState([
@@ -131,7 +131,7 @@ const Phonebook = () => {
         </p>
       )}
       {isEditProfileOpen && (
-        <Modal func={setEditProfileOpen}>
+        <Modal action={setEditProfileOpen}>
           <EditProfileForm
             setEditProfileOpen={setEditProfileOpen}
             contactById={contact}
@@ -141,7 +141,7 @@ const Phonebook = () => {
         </Modal>
       )}
       {isContactInfoOpen && (
-        <Modal func={setContactInfoOpen}>
+        <Modal action={setContactInfoOpen}>
           <ContactInfo contact={contact} />
         </Modal>
       )}
@@ -158,6 +158,9 @@ export default Phonebook;
 // import ContactList from './contactList/ContactList';
 // import Filter from './filter/Filter';
 // import Main from './PhonebookStyled';
+// import EditProfileForm from './editProfileForm/EditProfileForm';
+// import Modal from './modal/Madal';
+// import ContactInfo from './contactInfo/ContactInfo';
 
 // import { notice } from '@pnotify/core';
 // import '@pnotify/core/dist/PNotify.css';
@@ -172,10 +175,12 @@ export default Phonebook;
 //       // { id: 'id-4', name: 'Annie Copeland', number: '+380672279126' },
 //     ],
 //     filter: '',
+//     isEditProfileOpen: false,
+//     isContactInfoOpen: false,
+//     contact: {},
 //   };
 
 //   componentDidMount() {
-//     console.log('componentDidMount');
 //     if (localStorage.getItem('contacts')) {
 //       const contactsFromLS = JSON.parse(localStorage.getItem('contacts'));
 //       contactsFromLS.length &&
@@ -267,28 +272,68 @@ export default Phonebook;
 //     this.setState({ filter: e.target.value });
 //   };
 
+//   getContactById = id => {
+//     const contactById = this.state.contacts.find(contact => contact.id === id);
+//     this.setState({ contact: { ...contactById } });
+//   };
+
+//   setEditProfileOpen = flag => {
+//     this.setState({ isEditProfileOpen: flag });
+//   };
+
+//   setContactInfoOpen = flag => {
+//     this.setState({ isContactInfoOpen: flag });
+//   };
+
+//   setContacts = contacts => {
+//     this.setState({ contacts: [...contacts] });
+//   };
+
 //   render() {
-//     const { contacts, filter } = this.state;
+//     const {
+//       contacts,
+//       filter,
+//       isEditProfileOpen,
+//       isContactInfoOpen,
+//       contact,
+//     } = this.state;
+
 //     return (
 //       <Main>
 //         <h1 className="phonebook_title">Phonebook</h1>
 //         <ContactForm addContact={this.addContact} />
-
 //         <h2 className="contacts_title">Contacts</h2>
 //         {contacts.length >= 1 && (
 //           <Filter onChange={this.handleFilterInputChange} filter={filter} />
 //         )}
-
 //         {contacts.length > 0 ? (
 //           <ContactList
 //             contacts={this.getFilteredContacts()}
 //             filter={filter}
 //             deleteContact={this.deleteContact}
+//             setEditProfileOpen={this.setEditProfileOpen}
+//             setContactInfoOpen={this.setContactInfoOpen}
+//             getContactById={this.getContactById}
 //           />
 //         ) : (
 //           <p className="contacts_text">
 //             Your phone book is empty. Please add a contact.
 //           </p>
+//         )}
+//         {isEditProfileOpen && (
+//           <Modal action={this.setEditProfileOpen}>
+//             <EditProfileForm
+//               setEditProfileOpen={this.setEditProfileOpen}
+//               contactById={contact}
+//               setContacts={this.setContacts}
+//               contacts={contacts}
+//             />
+//           </Modal>
+//         )}
+//         {isContactInfoOpen && (
+//           <Modal action={this.setContactInfoOpen}>
+//             <ContactInfo contact={contact} />
+//           </Modal>
 //         )}
 //       </Main>
 //     );

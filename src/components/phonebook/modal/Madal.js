@@ -1,9 +1,9 @@
 import Overlay from './ModalStyled';
 import PropTypes from 'prop-types';
 
-const Modal = ({ func, children }) => {
+const Modal = ({ action, children }) => {
   const onHadleClick = () => {
-    func(false);
+    action(false);
   };
 
   return (

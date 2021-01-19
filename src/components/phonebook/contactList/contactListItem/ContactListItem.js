@@ -30,10 +30,9 @@ const ContactListItem = ({
         data-id={item.id}
         onClick={openContactInfo}
       >
-        <div>
-          <p className="listItem_name">{item.name} </p>
-          <p className="listItem_number">{item.number}</p>
-        </div>
+        <h3 className="listItem_name">{item.name} </h3>
+
+        <p className="listItem_number">{item.number}</p>
         {item.category && <p className="listItem_category">{item.category}</p>}
       </div>
 
